@@ -16,6 +16,7 @@ PANTALLA INICIAL
 
 .inicio {
 min-height: 100vh;
+min-height: 100svh;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -24,12 +25,10 @@ text-align: center;
 padding: 30px 20px;
 position: relative;
 overflow: hidden;
-
 background:
-    radial-gradient(circle at 20% 20%, #ffffff 0%, transparent 25%),
-    radial-gradient(circle at 80% 80%, #d9e4ef 0%, transparent 30%),
-    linear-gradient(135deg, #f8fafc, #dce5ee);
-
+radial-gradient(circle at 20% 20%, #ffffff 0%, transparent 25%),
+radial-gradient(circle at 80% 80%, #d9e4ef 0%, transparent 30%),
+linear-gradient(135deg, #f8fafc, #dce5ee);
 }
 
 /* Decoración superior */
@@ -67,10 +66,7 @@ font-size: 42px;
 color: #263b4d;
 line-height: 1.15;
 margin-bottom: 15px;
-
-text-shadow:
-    0 3px 10px rgba(50, 70, 90, 0.15);
-
+text-shadow: 0 3px 10px rgba(50, 70, 90, 0.15);
 }
 
 .linea-inicial {
@@ -98,18 +94,20 @@ position: relative;
 margin-bottom: 35px;
 background: #d5e0eb;
 border-radius: 5px;
-
 box-shadow:
-    0 20px 40px rgba(43, 61, 79, 0.22),
-    0 5px 10px rgba(43, 61, 79, 0.10);
-
+0 20px 40px rgba(43, 61, 79, 0.22),
+0 5px 10px rgba(43, 61, 79, 0.10);
 cursor: pointer;
-transition: transform 0.4s ease;
-
+transition: transform 0.4s ease, box-shadow 0.4s ease;
+animation: sobreFlotando 4s ease-in-out infinite;
 }
 
 .sobre:hover {
-transform: translateY(-8px) rotate(-1deg);
+animation-play-state: paused;
+transform: translateY(-12px) rotate(-2deg) scale(1.02);
+box-shadow:
+0 15px 35px rgba(50, 90, 120, 0.25),
+0 0 30px rgba(100, 150, 190, 0.35);
 }
 
 /* Parte inferior del sobre */
@@ -119,13 +117,10 @@ content: "";
 position: absolute;
 left: 0;
 bottom: 0;
-
 border-left: 135px solid transparent;
 border-right: 135px solid transparent;
 border-bottom: 95px solid #c1d0df;
-
 z-index: 3;
-
 }
 
 /* Parte lateral */
@@ -135,13 +130,11 @@ content: "";
 position: absolute;
 left: 0;
 top: 0;
-
 border-left: 135px solid #e1e9f1;
 border-right: 135px solid #e1e9f1;
 border-bottom: 90px solid transparent;
-
 z-index: 2;
-
+transition: opacity 0.5s ease;
 }
 
 /* Tapa */
@@ -150,74 +143,60 @@ z-index: 2;
 position: absolute;
 top: 0;
 left: 0;
-
 width: 0;
 height: 0;
-
 border-left: 135px solid transparent;
 border-right: 135px solid transparent;
 border-top: 95px solid #b5c7d8;
-
 transform-origin: top;
 z-index: 5;
-
 transition: transform 0.8s ease;
+}
 
+.sobre .tapa {
+filter: drop-shadow(0 0 0 transparent);
+}
+
+.sobre:hover .tapa {
+filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
 }
 
 /* Carta dentro del sobre */
 
 .carta-pequena {
 position: absolute;
-
 width: 105px;
 height: 75px;
-
 left: 82px;
 top: 65px;
-
 display: flex;
 justify-content: center;
 align-items: center;
-
 background: #ffffff;
 border-radius: 4px;
-
 z-index: 1;
-
-box-shadow:
-    0 5px 15px rgba(0, 0, 0, 0.12);
-
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
 transition: transform 0.8s ease;
-
 }
 
-/* Decoración geométrica de la carta */
+/* Decoración de la carta */
 
 .detalle-carta {
 width: 28px;
 height: 28px;
-
 border: 2px solid #6f879d;
-
 transform: rotate(45deg);
-
 position: relative;
-
 }
 
 .detalle-carta::after {
 content: "";
 position: absolute;
-
 width: 12px;
 height: 12px;
-
 border: 1px solid #a4b5c4;
-
 top: 6px;
 left: 6px;
-
 }
 
 /* =========================
@@ -228,43 +207,29 @@ BOTÓN
 border: none;
 background: #344f68;
 color: white;
-
 padding: 15px 32px;
-
 border-radius: 30px;
-
 font-family: inherit;
 font-size: 15px;
 font-weight: bold;
-
 cursor: pointer;
-
-box-shadow:
-    0 8px 20px rgba(52, 79, 104, 0.25);
-
+box-shadow: 0 8px 20px rgba(52, 79, 104, 0.25);
 transition: all 0.3s ease;
-
+animation: botonPulso 3s ease-in-out infinite;
 }
 
 .inicio button:hover {
 background: #263e55;
-
 transform: translateY(-3px);
-
-box-shadow:
-    0 12px 25px rgba(52, 79, 104, 0.35);
-
+box-shadow: 0 12px 25px rgba(52, 79, 104, 0.35);
 }
 
 .abajo {
 position: absolute;
 bottom: 20px;
-
 font-size: 11px;
 color: #8a9aaa;
-
 letter-spacing: 1px;
-
 }
 
 /* =========================
@@ -279,33 +244,47 @@ transform: rotateX(180deg);
 transform: translateY(-70px);
 }
 
+.sobre.abierto {
+animation: abrirSobre 1s ease forwards;
+}
+
+@keyframes abrirSobre {
+0% {
+transform: scale(1);
+}
+
+
+50% {
+    transform: scale(1.05);
+}
+
+100% {
+    transform: scale(1);
+}
+
+
+}
+
 /* =========================
 CARTA
 ========================= */
 
 .regalo {
 min-height: 100vh;
-
+min-height: 100svh;
 display: none;
-
 justify-content: center;
 align-items: center;
-
 padding: 50px 20px;
-
 background:
-    radial-gradient(circle at top left, #ffffff, transparent 30%),
-    radial-gradient(circle at bottom right, #d5e2ee, transparent 35%),
-    #e8edf2;
-
+radial-gradient(circle at top left, #ffffff, transparent 30%),
+radial-gradient(circle at bottom right, #d5e2ee, transparent 35%),
+#e8edf2;
 }
 
 .regalo.mostrar {
 display: flex;
-
 animation: aparecer 1s ease;
-animation: aparecer 1s ease;
-
 }
 
 @keyframes aparecer {
@@ -314,10 +293,12 @@ opacity: 0;
 transform: scale(0.96);
 }
 
+
 to {
     opacity: 1;
     transform: scale(1);
 }
+
 
 }
 
@@ -328,98 +309,66 @@ CONTENIDO
 .contenido {
 width: 100%;
 max-width: 720px;
-
 background: rgba(255, 255, 255, 0.96);
-
 padding: 55px 65px;
-
 text-align: center;
-
 border-radius: 20px;
-
-box-shadow:
-    0 25px 60px rgba(38, 53, 68, 0.15);
-
+box-shadow: 0 25px 60px rgba(38, 53, 68, 0.15);
 border: 1px solid #dce4eb;
-
 position: relative;
-
+animation: entradaCarta 1.5s ease;
 }
 
 /* Decoración */
 
 .decoracion {
 display: flex;
-
 justify-content: center;
 align-items: center;
-
 gap: 12px;
-
 margin-bottom: 20px;
-
 }
 
 .decoracion span {
 width: 45px;
 height: 1px;
-
 background: #8297aa;
-background: #8297aa;
-
 }
 
 .decoracion i {
 width: 8px;
 height: 8px;
-
 display: block;
-
 border: 1px solid #607b94;
-
 transform: rotate(45deg);
-
 }
 
 .fecha {
 font-size: 11px;
-
 letter-spacing: 4px;
-
 color: #8497a9;
-
 margin-bottom: 15px;
-
 }
 
 .contenido h1 {
 color: #263e55;
-
 font-size: 34px;
-
 margin-bottom: 10px;
-
+animation: aparecerTitulo 1.4s ease;
 }
 
 .nombre {
 color: #6c849b;
-
 font-size: 23px;
-
 font-weight: normal;
-
 font-style: italic;
-
 }
 
 .linea {
 width: 80px;
 height: 2px;
-
 background: #a8b9c9;
-
 margin: 25px auto;
-
 }
 
 /* =========================
@@ -429,78 +378,62 @@ FOTO
 .foto-contenedor {
 width: 280px;
 height: 280px;
-
 margin: 0 auto 30px;
-
 padding: 8px;
-
 background: #ffffff;
-
 border: 1px solid #d5dee7;
-
-box-shadow:
-    0 10px 25px rgba(40, 60, 80, 0.15);
-
+box-shadow: 0 10px 25px rgba(40, 60, 80, 0.15);
 position: relative;
+transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
 
+.foto-contenedor:hover {
+transform: scale(1.03);
+box-shadow: 0 15px 35px rgba(40, 60, 80, 0.22);
 }
 
 .foto {
 width: 100%;
 height: 100%;
-
 object-fit: cover;
-
 display: block;
-
 }
 
-/* Esquinas decorativas */
+/* Esquinas */
 
 .esquina {
 position: absolute;
-
 width: 15px;
 height: 15px;
-
 z-index: 2;
-
 }
 
 .esquina-1 {
 top: -5px;
 left: -5px;
-
 border-top: 2px solid #647e96;
 border-left: 2px solid #647e96;
-
 }
 
 .esquina-2 {
 top: -5px;
 right: -5px;
-
 border-top: 2px solid #647e96;
 border-right: 2px solid #647e96;
-
 }
 
 .esquina-3 {
 bottom: -5px;
 left: -5px;
-
 border-bottom: 2px solid #647e96;
 border-left: 2px solid #647e96;
-
 }
 
 .esquina-4 {
 bottom: -5px;
 right: -5px;
-
 border-bottom: 2px solid #647e96;
 border-right: 2px solid #647e96;
-
 }
 
 /* =========================
@@ -514,24 +447,34 @@ margin: auto;
 
 .mensaje p {
 color: #536779;
-
 font-size: 16px;
-
 line-height: 1.8;
-
 margin-bottom: 18px;
-
 }
 
 .especial {
 color: #405e78 !important;
-
 font-weight: bold;
-
 font-size: 18px !important;
-
 margin-top: 25px;
+position: relative;
+display: inline-block;
+}
 
+.especial::after {
+content: "";
+position: absolute;
+left: 50%;
+bottom: -5px;
+width: 0;
+height: 1px;
+background: #6f879d;
+transform: translateX(-50%);
+transition: width 0.5s ease;
+}
+
+.especial:hover::after {
+width: 100%;
 }
 
 /* =========================
@@ -540,34 +483,24 @@ SEPARADOR
 
 .separador {
 margin: 30px 0 20px;
-
 display: flex;
-
 justify-content: center;
-
 align-items: center;
-
 gap: 12px;
-
 }
 
 .separador span {
 width: 35px;
 height: 1px;
-
 background: #a3b3c1;
-background: #a3b3c1;
-
 }
 
 .separador i {
 width: 8px;
 height: 8px;
-
 border: 1px solid #607b94;
-
 transform: rotate(45deg);
-
+animation: rombo 2s ease-in-out infinite;
 }
 
 /* =========================
@@ -576,398 +509,210 @@ FINAL
 
 .final {
 color: #2d475f;
-
 font-size: 24px;
-
-
 }
 
 .final-texto {
 color: #708294;
-
-
 margin-top: 10px;
 }
+
 /* =========================
 DECORACIÓN DEL FONDO
 ========================= */
 
 .decoracion-fondo {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
+position: fixed;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+pointer-events: none;
+overflow: hidden;
+z-index: 0;
 }
-
-/* Figuras */
 
 .figura {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border: 1px solid #91a6b9;
-  transform: rotate(45deg);
-  opacity: 0.45;
-  animation: flotar 8s ease-in-out infinite;
+position: absolute;
+width: 10px;
+height: 10px;
+border: 1px solid #91a6b9;
+transform: rotate(45deg);
+opacity: 0.45;
+animation: flotar 8s ease-in-out infinite;
 }
 
-/* Posiciones */
-
 .figura-1 {
-  top: 15%;
-  left: 10%;
-  animation-delay: 0s;
+top: 15%;
+left: 10%;
 }
 
 .figura-2 {
-  top: 30%;
-  right: 12%;
-  width: 7px;
-  height: 7px;
-  animation-delay: 2s;
+top: 30%;
+right: 12%;
+width: 7px;
+height: 7px;
+animation-delay: 2s;
 }
 
 .figura-3 {
-  top: 70%;
-  left: 15%;
-  width: 14px;
-  height: 14px;
-  animation-delay: 4s;
+top: 70%;
+left: 15%;
+width: 14px;
+height: 14px;
+animation-delay: 4s;
 }
 
 .figura-4 {
-  top: 80%;
-  right: 20%;
-  animation-delay: 1s;
+top: 80%;
+right: 20%;
+animation-delay: 1s;
 }
 
 .figura-5 {
-  top: 10%;
-  right: 30%;
-  width: 6px;
-  height: 6px;
-  animation-delay: 3s;
+top: 10%;
+right: 30%;
+width: 6px;
+height: 6px;
+animation-delay: 3s;
 }
 
 .figura-6 {
-  top: 55%;
-  right: 7%;
-  width: 12px;
-  height: 12px;
-  animation-delay: 5s;
+top: 55%;
+right: 7%;
+width: 12px;
+height: 12px;
+animation-delay: 5s;
 }
 
-/* Círculos */
-
 .circulo {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid #a9b9c7;
-  opacity: 0.3;
-  animation: flotar 10s ease-in-out infinite;
+position: absolute;
+border-radius: 50%;
+border: 1px solid #a9b9c7;
+opacity: 0.3;
+animation: flotar 10s ease-in-out infinite;
 }
 
 .circulo-1 {
-  width: 35px;
-  height: 35px;
-  top: 18%;
-  right: 20%;
+width: 35px;
+height: 35px;
+top: 18%;
+right: 20%;
 }
 
 .circulo-2 {
-  width: 18px;
-  height: 18px;
-  bottom: 20%;
-  left: 25%;
-  animation-delay: 3s;
+width: 18px;
+height: 18px;
+bottom: 20%;
+left: 25%;
+animation-delay: 3s;
 }
 
 .circulo-3 {
-  width: 25px;
-  height: 25px;
-  top: 65%;
-  right: 30%;
-  animation-delay: 6s;
+width: 25px;
+height: 25px;
+top: 65%;
+right: 30%;
+animation-delay: 6s;
 }
 
 /* =========================
-ANIMACIÓN FLOTANTE
+ANIMACIONES
 ========================= */
 
 @keyframes flotar {
-  0% {
-    transform: translateY(0) rotate(45deg);
-  }
-
-  50% {
-    transform: translateY(-25px) rotate(90deg);
-  }
-
-  100% {
-    transform: translateY(0) rotate(135deg);
-  }
+0% {
+transform: translateY(0) rotate(45deg);
 }
 
-/* =========================
-SOBRE FLOTANDO
-========================= */
+50% {
+    transform: translateY(-25px) rotate(90deg);
+}
 
-.sobre {
-  animation: sobreFlotando 4s ease-in-out infinite;
+100% {
+    transform: translateY(0) rotate(135deg);
+}
 }
 
 @keyframes sobreFlotando {
-  0% {
-    transform: translateY(0);
-  }
+0% {
+transform: translateY(0);
+}
 
-  50% {
+50% {
     transform: translateY(-8px);
-  }
+}
 
-  100% {
+100% {
     transform: translateY(0);
-  }
 }
 
-/* Cuando el mouse está encima */
-
-.sobre:hover {
-  animation-play-state: paused;
-  transform: translateY(-12px) rotate(-2deg) scale(1.02);
-}
-
-/* =========================
-BRILLO DEL SOBRE
-========================= */
-
-.sobre {
-position: relative;
-}
-
-.sobre .tapa {
-filter: drop-shadow(0 0 0 transparent);
-}
-
-.sobre:hover .tapa {
-filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
-}
-:after {
-  transition: opacity 0.5s ease;
-}
-
-.sobre:hover {
-  box-shadow:
-    0 20px 40px rgba(43, 61, 79, 0.22),
-    0 0 25px rgba(112, 143, 169, 0.25);
-}
-
-/* =========================
-BOTÓN PULSANTE
-========================= */
-
-.inicio button {
-  animation: botonPulso 3s ease-in-out infinite;
 }
 
 @keyframes botonPulso {
-  0% {
-    box-shadow: 0 8px 20px rgba(52, 79, 104, 0.25);
-  }
+0% {
+box-shadow: 0 8px 20px rgba(52, 79, 104, 0.25);
+}
 
-  50% {
+50% {
     box-shadow: 0 8px 28px rgba(52, 79, 104, 0.40);
-  }
+}
 
-  100% {
+100% {
     box-shadow: 0 8px 20px rgba(52, 79, 104, 0.25);
-  }
 }
-
-/* =========================
-ANIMACIÓN DE LA CARTA
-========================= */
-
-.contenido {
-  animation: cartaEntrada 1.2s ease;
-}
-
-@keyframes cartaEntrada {
-  0% {
-    opacity: 0;
-    transform: translateY(40px) scale(0.96);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* =========================
-TÍTULO
-========================= */
-
-.contenido h1 {
-  animation: aparecerTitulo 1.4s ease;
-}
-
-@keyframes aparecerTitulo {
-  from {
-    opacity: 0;
-    transform: translateY(-15px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =========================
-FOTO
-========================= */
-
-.foto-contenedor {
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
-}
-
-.foto-contenedor:hover {
-  transform: rotate(0deg) scale(1.03);
-  box-shadow: 0 15px 35px rgba(40, 60, 80, 0.22);
-}
-
-/* =========================
-LÍNEAS DECORATIVAS
-========================= */
-
-.linea,
-.linea-inicial {
-  position: relative;
-  overflow: hidden;
-}
-
-.linea::after,
-.linea-inicial::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: #ffffff;
-  animation: lineaBrillo 3s ease-in-out infinite;
-}
-
-@keyframes lineaBrillo {
-  0% {
-    left: -100%;
-  }
-
-  50% {
-    left: 100%;
-  }
-
-  100% {
-    left: 100%;
-  }
-}
-
-/* =========================
-TEXTO ESPECIAL
-========================= */
-
-.especial {
-  position: relative;
-  display: inline-block;
-}
-
-.especial::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -5px;
-  width: 0;
-  height: 1px;
-  background: #6f879d;
-  transform: translateX(-50%);
-  transition: width 0.5s ease;
-}
-
-.especial:hover::after {
-  width: 100%;
-}
-
-/* =========================
-SEPARADOR ANIMADO
-========================= */
-
-.separador i {
-  animation: rombo 2s ease-in-out infinite;
 }
 
 @keyframes rombo {
-  0% {
-    transform: rotate(45deg) scale(1);
-  }
+0% {
+transform: rotate(45deg) scale(1);
+}
 
-  50% {
+50% {
     transform: rotate(135deg) scale(1.3);
-  }
+}
 
-  100% {
+100% {
     transform: rotate(225deg) scale(1);
-  }
+}
+}
+
+@keyframes aparecerTitulo {
+from {
+opacity: 0;
+transform: translateY(-15px);
+}
+
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+}
+
+@keyframes entradaCarta {
+0% {
+opacity: 0;
+transform: translateY(80px) scale(0.85);
+}
+
+
+60% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.02);
+}
+
+100% {
+    transform: translateY(0) scale(1);
+}
+
+
 }
 
 /* =========================
-BOTÓN VOLVER
+SERPENTINAS
 ========================= */
 
-.volver:hover {
-  box-shadow: 0 5px 15px rgba(50, 70, 90, 0.15);
-}
-
-/* =========================
-ANIMACIÓN AL ABRIR
-========================= */
-
-.sobre.abierto {
-  animation: abrirSobre 1s ease forwards;
-}
-
-@keyframes abrirSobre {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.05);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* =========================
-REDUCIR ANIMACIONES
-PARA QUIEN LO NECESITE
-========================= */
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
 .serpentina {
 position: fixed;
 top: -30px;
@@ -980,12 +725,12 @@ animation: caerSerpentina 4s linear forwards;
 }
 
 @keyframes caerSerpentina {
-
 0% {
-    top: -30px;
-    opacity: 0;
-    transform: translateX(0) rotate(0deg);
+top: -30px;
+opacity: 0;
+transform: translateX(0) rotate(0deg);
 }
+
 
 10% {
     opacity: 1;
@@ -1001,36 +746,358 @@ animation: caerSerpentina 4s linear forwards;
     transform: translateX(-80px) rotate(360deg);
 }
 
+
 }
 
-.sobre {
-transition: transform 0.4s ease, box-shadow 0.4s ease;
+/* =========================
+LÍNEAS DECORATIVAS
+========================= */
+
+.linea,
+.linea-inicial {
+position: relative;
+overflow: hidden;
 }
 
-.sobre:hover {
-box-shadow:
-0 15px 35px rgba(50, 90, 120, 0.25),
-0 0 30px rgba(100, 150, 190, 0.35);
+.linea::after,
+.linea-inicial::after {
+content: "";
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: #ffffff;
+animation: lineaBrillo 3s ease-in-out infinite;
 }
 
-.contenido {
-animation: entradaCarta 1.5s ease;
-}
-
-@keyframes entradaCarta {
-
+@keyframes lineaBrillo {
 0% {
-    opacity: 0;
-    transform: translateY(80px) scale(0.85);
+left: -100%;
 }
 
-60% {
-    opacity: 1;
-    transform: translateY(-10px) scale(1.02);
+
+50% {
+    left: 100%;
 }
 
 100% {
-    transform: translateY(0) scale(1);
+    left: 100%;
 }
 
+
+}
+
+/* =========================
+BOTÓN VOLVER
+========================= */
+
+.volver:hover {
+box-shadow: 0 5px 15px rgba(50, 70, 90, 0.15);
+}
+
+/* =========================
+CELULAR
+========================= */
+
+@media (max-width: 600px) {
+
+body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Pantalla inicial */
+
+.inicio {
+    padding: 25px 15px;
+    min-height: 100svh;
+}
+
+.decoracion-superior {
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.decoracion-superior span {
+    width: 30px;
+}
+
+.pequeno {
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.inicio h1 {
+    font-size: 30px;
+    line-height: 1.2;
+    max-width: 340px;
+    margin-bottom: 12px;
+}
+
+.subtitulo {
+    font-size: 15px;
+    margin-bottom: 25px;
+    max-width: 300px;
+}
+
+/* Sobre */
+
+.sobre {
+    width: 230px;
+    height: 153px;
+    margin-bottom: 28px;
+}
+
+.sobre::before {
+    border-left-width: 115px;
+    border-right-width: 115px;
+    border-bottom-width: 80px;
+}
+
+.sobre::after {
+    border-left-width: 115px;
+    border-right-width: 115px;
+    border-bottom-width: 77px;
+}
+
+.tapa {
+    border-left-width: 115px;
+    border-right-width: 115px;
+    border-top-width: 80px;
+}
+
+.carta-pequena {
+    width: 90px;
+    height: 64px;
+    left: 70px;
+    top: 55px;
+}
+
+.detalle-carta {
+    width: 23px;
+    height: 23px;
+}
+
+.detalle-carta::after {
+    width: 9px;
+    height: 9px;
+    top: 5px;
+    left: 5px;
+}
+
+/* Botón */
+
+.inicio button {
+    padding: 13px 26px;
+    font-size: 14px;
+}
+
+.abajo {
+    bottom: 12px;
+    font-size: 9px;
+}
+
+/* Carta */
+
+.regalo {
+    padding: 25px 12px;
+    min-height: 100svh;
+    align-items: flex-start;
+}
+
+.contenido {
+    width: 100%;
+    max-width: 100%;
+    padding: 35px 18px;
+    border-radius: 15px;
+}
+
+.decoracion {
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.decoracion span {
+    width: 30px;
+}
+
+.fecha {
+    font-size: 9px;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.contenido h1 {
+    font-size: 27px;
+    line-height: 1.2;
+}
+
+.nombre {
+    font-size: 20px;
+}
+
+.linea {
+    width: 60px;
+    margin: 20px auto;
+}
+
+/* Foto */
+
+.foto-contenedor {
+    width: min(250px, 80vw);
+    height: min(250px, 80vw);
+    margin-bottom: 25px;
+}
+
+/* Mensaje */
+
+.mensaje {
+    width: 100%;
+}
+
+.mensaje p {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.especial {
+    font-size: 16px !important;
+    line-height: 1.5;
+}
+
+/* Separador */
+
+.separador {
+    margin: 25px 0 18px;
+    gap: 8px;
+}
+
+.separador span {
+    width: 25px;
+}
+
+.final {
+    font-size: 21px;
+}
+
+.final-texto {
+    font-size: 14px;
+}
+
+/* Decoración de fondo */
+
+.figura-1 {
+    left: 5%;
+}
+
+.figura-2 {
+    right: 5%;
+}
+
+.figura-3 {
+    left: 5%;
+}
+
+.figura-4 {
+    right: 8%;
+}
+
+.figura-5 {
+    right: 15%;
+}
+
+.figura-6 {
+    right: 3%;
+}
+
+/* =========================
+CELULARES MUY PEQUEÑOS
+========================= */
+
+@media (max-width: 380px) {
+
+
+.inicio h1 {
+    font-size: 27px;
+}
+
+.subtitulo {
+    font-size: 14px;
+}
+
+.sobre {
+    width: 210px;
+    height: 140px;
+}
+
+.sobre::before {
+    border-left-width: 105px;
+    border-right-width: 105px;
+    border-bottom-width: 73px;
+}
+
+.sobre::after {
+    border-left-width: 105px;
+    border-right-width: 105px;
+    border-bottom-width: 70px;
+}
+
+.tapa {
+    border-left-width: 105px;
+    border-right-width: 105px;
+    border-top-width: 73px;
+}
+
+.carta-pequena {
+    width: 82px;
+    height: 58px;
+    left: 64px;
+    top: 50px;
+}
+
+.contenido {
+    padding: 30px 14px;
+}
+
+.contenido h1 {
+    font-size: 24px;
+}
+
+.nombre {
+    font-size: 18px;
+}
+
+.foto-contenedor {
+    width: 220px;
+    height: 220px;
+}
+
+.mensaje p {
+    font-size: 13px;
+}
+
+.final {
+    font-size: 19px;
+}
+
+}
+
+/* =========================
+REDUCIR ANIMACIONES
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+*,
+*::before,
+*::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+}
+
+}
 }
